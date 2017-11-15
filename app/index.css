@@ -1,0 +1,152 @@
+html, body {
+  margin: 0; padding: 0;
+}
+ul{
+padding: 0;
+}
+li {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: #179CDE;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.row {
+  display: flex;
+  justify-content: space-around;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  align-items: center;
+  margin-top: 100px;
+}
+.column input {
+  border-radius: 3px;
+  margin: 10px 0;
+  margin-bottom: 20px;
+  padding: 5px;
+  border: 1px solid rgba(0,0,0, 0.43);
+  font-size: 16px;
+  width: 80%;
+}
+.welcome {
+  font-size: 50px;
+  color: #8C8C8C;
+  /*text-shadow: 0 0 4px #ccc, 0 -5px 4px #ff3, 2px -1px 6px #fd3, -5px -15px 11px #f80, 2px -18px 18px #f20;*/
+  /*text-shadow: 2px 2px #a2c3c3;*/
+}
+/*bg animation*/
+html {
+  background: gray url(https://subtlepatterns.com/patterns/geometry2.png) repeat 0 0;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  height: 300px;
+  box-sizing: border-box;
+  -webkit-animation: slide 20s linear infinite;
+}
+
+html h1 {
+  font-family: sans-serif;
+}
+
+@-webkit-keyframes slide {
+    from { background-position: 0 0; }
+    to { background-position: -400px 0; }
+}
+.qoute {
+  margin-top: 0;
+  color: #4D4D4D;
+  font-size: 25px;
+}
+.header {
+  color: #4D4D4D;
+  text-align: center;
+  font-size: 45px;
+  font-weight: 200;
+  margin-bottom: 20px;
+}
+.languages {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+}
+.languages li {
+  margin: 10px;
+  font-weight: 10px;
+  cursor: pointer;
+}
+.popular-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.popular-item {
+  margin: 20px;
+  text-align: center;
+}
+.avatar {
+  width: 150px;
+  border-radius: 50%;
+}
+.space-list-items {
+   text-align: center;
+   font-size: 18px;
+}
+.popular-rank {
+  font-size: 20px;
+  margin: 10px;
+}
+.nav {
+  display: flex;
+  font-size: 18px;
+}
+.nav li {
+  margin-right: 15px;
+}
+.active {
+  font-weight: bold;
+}
+.reset {
+  border: none;
+  background: transparent;
+  color: #d0021b;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+}
+.reset: hoover {
+  cursor: pointer;
+}
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.button {
+  color: #e6e6e6;
+  background: #0a0a0a;
+  border: none;
+  font-size: 16px;
+  border-radius: 3px;
+  width: 200px;
+  text-align: center;
+  display: block;
+  padding: 7px 0;
+  margin: 10px auto;
+}
+.button:hoover:enabled {
+  background: linear-gradient(#1a1a1a,#0a0a0a);
+  color: #fff;
+  text-decoration: none;
+}
+.button:active {
+  transform: translateY(1px);
+}
