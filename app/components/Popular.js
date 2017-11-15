@@ -1,7 +1,7 @@
-var React = require('react');
-var PropTypes = require('prop-types');
-var api = require('../utils/api');
-var Loading = require('./Loading');
+import React from 'react'
+import PropTypes from 'prop-types'
+import { fetchPopularRepos, getLocation } from '../utils/api'
+import Loading from './Loading'
 
 function SelectLanguage (props) {
   var languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
@@ -50,16 +50,22 @@ function RepoGrid (props) {
 function Location(props) {
    return (
      <div>
-     <select className='location' onChange={(e) => props.onSelected(e)} value={props.chosenLocation}>
-       {props.usersWithLocations.map(loc => {
-         return (
-           <option value={loc.location}>
-             {loc.location}
-           </option>
-         )
-       })}
-     </select>
-     <button onClick={e => props.onReset(e)}>Reset</button>
+       <select className='location' onChange={(e) => props.onSelected(e)} value={props.chosenLocation}>
+         {props.usersWithLocations.map((loc,index) => {
+           return (
+             <option
+              value={loc.location}
+              key={index}>
+               {loc.location}
+             </option>
+           )
+         })}
+       </select>
+       <button
+        className='search'
+        onClick={e => props.onReset(e)}>
+        Reset
+       </button>
    </div>
    );
  }
@@ -97,7 +103,7 @@ class Popular extends React.Component {
   }
 
   componentDidUpdate (nextProps, nextState) {
-    api.fetchPopularRepos(nextState.selectedLanguage)
+    fetchPopularRepos(nextState.selectedLanguage)
       .then(function (repos) {
         if (!this.state.repos) {
           this.setState(function () {
@@ -109,12 +115,12 @@ class Popular extends React.Component {
       }.bind(this))
 
       if (this.state.repos && this.state.repos !== nextState.repos) {
-        const location = api.getLocation(this.state.repos).map(user => {
+        const location = getLocation(this.state.repos).map(user => {
           return user.then(userInfo => userInfo)
         })
         const arrayOfUsers = Promise.all(location)
-        .then(userInfo => userInfo.map(info => {
-          return { login: info.data.login, location: info.data.location ? info.data.location : "Missing location" }
+          .then(userInfo => userInfo.map(info => {
+            return { login: info.data.login, location: info.data.location ? info.data.location : "Missing location" }
           })
         )
         .then(users => {
@@ -179,4 +185,4 @@ class Popular extends React.Component {
   }
 }
 
-module.exports = Popular;
+export default Popular;
