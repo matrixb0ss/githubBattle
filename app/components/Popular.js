@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { fetchPopularRepos, getLocation } from '../utils/api'
 import Loading from './Loading'
+import Load from './Load'
 
 function SelectLanguage (props) {
   var languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
@@ -103,16 +104,25 @@ class Popular extends React.Component {
   }
 
   componentDidUpdate (nextProps, nextState) {
-    fetchPopularRepos(nextState.selectedLanguage)
-      .then(function (repos) {
-        if (!this.state.repos) {
-          this.setState(function () {
-            return {
-              repos
-            }
-          });
-        }
-      }.bind(this))
+      if (this.state.repos && this.state.repos !== nextState.repos) {
+        fetchPopularRepos(nextState.selectedLanguage)
+          .then(function (repos) {
+            this.setState(function () {
+                return {
+                  repos
+                }
+              });
+          }.bind(this))
+      } else fetchPopularRepos(nextState.selectedLanguage)
+        .then(function (repos) {
+          if (!this.state.repos) {
+            this.setState(function () {
+              return {
+                repos
+              }
+            });
+          }
+        }.bind(this))
 
       if (this.state.repos && this.state.repos !== nextState.repos) {
         const location = getLocation(this.state.repos).map(user => {
@@ -120,11 +130,13 @@ class Popular extends React.Component {
         })
         const arrayOfUsers = Promise.all(location)
           .then(userInfo => userInfo.map(info => {
-            return { login: info.data.login, location: info.data.location ? info.data.location : "Missing location" }
+            return { login: info.data.login, location: info.data.location ? info.data.location : `Location not received from @${info.data.login}` }
           })
         )
         .then(users => {
-          if (!this.state.usersWithLocations) {
+          if (this.state.usersWithLocations && this.state.usersWithLocations !== nextState.usersWithLocations) {
+            this.setState({ usersWithLocations: users })
+          } else {
             this.setState({ usersWithLocations: users })
           }
         })
@@ -170,7 +182,7 @@ class Popular extends React.Component {
           selectedLanguage={this.state.selectedLanguage}
           onSelect={this.updateLanguage} />
       {!this.state.usersWithLocations
-        ? <Loading />
+        ? <Load />
         : <Location
           onSelected={this.chooseLocation}
           onReset={this.resetList}

@@ -1,13 +1,16 @@
 import React from 'react'
 import ReactLoading from 'react-loading'
 
-var styles = {
+const styles = {
     textAlign: 'center',
+    width: '30px',
+    heigth: '30px',
+    margin: '0 auto'
 };
   function Load(props) {
     return (
       <div>
-        <ReactLoading style={textAlign: 'center'} type='cubes' color='#444' />
+        <ReactLoading style={styles} type='cubes' color='#333' />
       </div>
     )
   }
